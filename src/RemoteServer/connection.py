@@ -34,7 +34,3 @@ class FtpConnection(absConnection, SingleTon):
         """
         return pysftp.Connection(host=self.host, username=self.user, password=self.password, cnopts=self.cnopts)
 
-
-c1 = FtpConnection()
-c2 = FtpConnection()
-print id(c1),id(c2)

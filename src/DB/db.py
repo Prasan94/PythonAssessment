@@ -19,8 +19,8 @@ class MongoDB(absDb):
             print("Error Occurred in DB operation: %s"%exec_val)
         self.connection.close()
 
-    def insert(self, document):
+    def update(self, document):
         """
         """
-        self.collection.insert_one(document) 
+        self.collection.update_one(document) 
     

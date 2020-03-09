@@ -91,11 +91,13 @@ class Files(absFiles):
         try:
             with open(fileName) as csvfile:
                 reader = csv.reader(csvfile, delimiter=',')
-                for row in reader:
+                while True
                     if header:
-                        keys = row
+                        keys = next(reader).split(",")
                     else:
-                        yield dict(zip(keys, reader))
+                        yield dict(zip(keys, next(reader).split(",")))
+        except StopIteration:
+            pass
         except Exception as err:
             print "Error while parsing the file %s\n%s"%(fileName, err)
 

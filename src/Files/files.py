@@ -132,27 +132,28 @@ class Files(absFiles):
         """
         noOfThreadsToBeSpawned = 2
         breakMainLoop = False
-        while True:
-            tList = []
-            for _ in range(noOfThreadsToBeSpawned):
-                fileName = self.downloadQueue.get()
-                if not (fileName == "completed" or fileName == "error"):
-                    t = threading.Thread(target=self.insert_files, args=(fileName,))
-                    tList.append(t)
-                else:
-                    print "all files recieved"
-                    for t in tList:
-                        t.start()
-                    for t in tList:
-                        t.join()
-                    breakMainLoop = True
+        with self.dbConnection as conn:
+            while True:
+                tList = []
+                for _ in range(noOfThreadsToBeSpawned):
+                    fileName = self.downloadQueue.get()
+                    if not (fileName == "completed" or fileName == "error"):
+                        t = threading.Thread(target=self.insert_files, args=(fileName,))
+                        tList.append(t)
+                    else:
+                        print "all files recieved"
+                        for t in tList:
+                            t.start()
+                        for t in tList:
+                            t.join()
+                        breakMainLoop = True
+                        break
+                if breakMainLoop:
                     break
-            if breakMainLoop:
-                break
-            for t in tList:
-                t.start()
-            for t in tList:
-                t.join()
+                for t in tList:
+                    t.start()
+                for t in tList:
+                    t.join()
 
    
 

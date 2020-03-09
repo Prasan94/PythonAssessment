@@ -8,12 +8,11 @@ class MongoDB(absDb):
     """
     def __init__(self, uri):
         self.connection = MongoClient(uri)
-        self.db = conn.database #replace with actual db
         
     def __enter__(self):
         return self
     
-    def __exit__(self):
+    def __exit__(self, type, value, traceback):
         self.connection.close()
 
     def insert(self):

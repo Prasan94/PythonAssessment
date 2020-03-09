@@ -108,7 +108,7 @@ class Files(absFiles):
             documentObj = self.parse_csv(fileName)
             while True:
                 document = next(documentObj)
-                query = "" #prepare query
+                self.dbConnection.update(document)
                 print document
         except StopIteration:
             print "%s inserted into DB"%fileName

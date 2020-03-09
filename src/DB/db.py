@@ -22,5 +22,5 @@ class MongoDB(absDb):
     def update(self, document):
         """
         """
-        self.collection.update_one(document) 
+        self.db.update({cell_id:document["cellId"]},{$set : document}, {upsert:true})
     
